@@ -22,7 +22,13 @@ namespace JobSearch2._0.Controllers
         // GET: Jobs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Jobs.ToListAsync());
+            var notRejectedList = _context.Jobs.Where(j => j.Rejected == false);
+            return View(await notRejectedList.ToListAsync());
+        }
+        public async Task<IActionResult> RejectedIndex()
+        {
+            var rejectedList = _context.Jobs.Where(j => j.Rejected == true);
+            return View(await rejectedList.ToListAsync());
         }
 
         // GET: Jobs/Details/5
